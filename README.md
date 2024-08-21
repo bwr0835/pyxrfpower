@@ -17,11 +17,17 @@ $S\left(u_{x}, u_{y}\right)$ can be averaged over an arbitrary number of circles
 
 Spatial resolution can be estimated by fitting power law signal decays and noise floors relative to the frequency $u_{\mathrm{res}}$ at which the signal and noise meet ("knee frequency" $u_{\mathrm{knee}}$); however, because there is approximately equal mixing of signal and noise at $u_{r}$, finding $u_{\mathrm{res}}$ corresponding to a signal-to-noise ratio (SNR) greater than one, i.e. corresponding to a multiplicative factor greater than one, is will dilute the contributions to resolution from noise.
 
+Half-pitch/half-period spatial resolution can be estimated as
+
+```math
+\delta_{\mathrm{res}} = \frac{1}{2u_{\mathrm{res}}}.
+```
+
 More details about this analysis can be found in a manuscript currently being drafted.
 
 # GUI Features
 
-- Elemental image visualization
+- Elemental image and 2D PSD visualization
 - Tunable number of radial frequency bins
 - Tunable SNR cutoffs
 - Isotropic and anisotropic (i.e. $x$ and $y$) spatial resolutions $\delta_{\mathrm{res}}$ and $\delta_{\mathrm{res},x}$ and $\delta_{\mathrm{res},y}$, respectively
@@ -46,5 +52,9 @@ $ conda activate <renamed virtual environment>
 4. Invoke PyXRFPower:
 
 ```
-$ python xrfpower_launcher
+$ python pyxrfpower_launcher
 ```
+
+# References
+
+[1] J. Deng, D.J. Vine, S. Chen, Q. Jin., Y. S. G. Nashed, T. Peterka, S. Vogt, and C. Jacobsen, Sci. Rep. **7**, 445 (2017).
