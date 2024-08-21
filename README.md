@@ -14,7 +14,7 @@ PyXRFPower is a graphical user interface (GUI) designed to allow one to quickly 
 
 Mac, Linux, and Windows systems are all supported.
 
-Currently, HDF5 and Matlab files are supported; <ins>**however**</ins>, because synchrotron light sources can have different file structures, if the synchrotron of interest is not available, please contact <benjaminroter2026@u.northwestern.edu>.
+Currently, HDF5 and Matlab files are supported; <ins>**however**</ins>, because synchrotron light sources can have different file structures, if the synchrotron of interest is not available, please either add it to `hdf5_extract.py` or `mat_extract.py`, or contact <benjaminroter2026@u.northwestern.edu>.
 
 # Introduction
 
@@ -40,8 +40,6 @@ Half-pitch/half-period spatial resolution $\delta_{\mathrm{res}}$ for an isotrop
 
 For an anisotropic beam, $u_{\mathrm{res}} \rightarrow u_{\mathrm{res},x}, u_{\mathrm{res},y} \therefore \delta_{\mathrm{res}} \rightarrow \delta_{\mathrm{res},x}, \delta_{\mathrm{res},y}$.
 
-More details about this analysis can be found in a manuscript currently being drafted.
-
 # Installation
 
 1. Install [Anaconda](http://continuum.io/downloads)
@@ -50,15 +48,21 @@ More details about this analysis can be found in a manuscript currently being dr
 
 ```
 $ cd <path to PyXRFPower directory>
-$ conda env create -f base_env.yml --name pyxrfpower
-$ conda activate pyxrfpower
+$ conda env create -f base_env.yml --name pyxrfpwr
+$ conda activate pyxrfpwr
 ```
 
 4. Invoke PyXRFPower:
 
 ```
-$ python pyxrfpower_launcher.py
+$ python pyxrfpwr_launcher.py
 ```
+
+# Instruction Manuals and Additional Documentation
+
+A manual for how to use PyXRFPower can be found inside the PyXRFPower repository: `pyxrfpwr_im.docx`  
+
+More details about PSD analysis can be found in a manuscript currently being drafted.
 
 # References
 
