@@ -10,9 +10,11 @@ PyXRFPower is a graphical user interface (GUI) designed to allow one to quickly 
 - Isotropic and anisotropic (i.e. $x$ and $y$) spatial resolutions $\delta_{\mathrm{res}}$ and $\delta_{\mathrm{res},x}$ and $\delta_{\mathrm{res},y}$, respectively
 - A plot window capable of displaying azimuthally averaged PSD profiles for up to **ten** different elements simultaneously
 
-# OS Requirements
+# OS and File Requirements
 
 Mac, Linux, and Windows systems are all supported.
+
+Currently, HDF5 and Matlab files are supported; <ins>**however**</ins>, because synchrotron light sources can have different file structures, if the synchrotron of interest is not available, please contact <benjaminroter2026@u.northwestern.edu>.
 
 # Introduction
 
