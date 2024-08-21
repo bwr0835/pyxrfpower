@@ -70,5 +70,5 @@ Having trouble using PyXRFPower, noticing bugs, or thinking of recommandations f
 
 # References
 
-[1] J. Deng, D. J. Vine, S. Chen, Q. Jin., Y. S. G. Nashed, T. Peterka, S. Vogt, and C. Jacobsen, Sci. Rep. **7**, 445 (2017).
+[1] J. Deng, D. J. Vine, S. Chen, Q. Jin., Y. S. G. Nashed, T. Peterka, S. Vogt, and C. Jacobsen, Sci. Rep. **7**, 445 (2017).  
 [2] A. M. Crawford, A. Deb, and J. E. Penner-Hahn, J. Synchrotron Radiat. 26, 497 (2019).
