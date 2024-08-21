@@ -5,10 +5,8 @@ PyXRFPower is a graphical user interface (GUI) designed to allow one to quickly 
 # GUI Features
 
 - Elemental image and 2D PSD visualization
-- Tunable number of radial frequency bins
-- Tunable signal-to-noise ratio (SNR) cutoffs
-- Isotropic and anisotropic (i.e. $x$ and $y$) spatial resolutions $\delta_{\mathrm{res}}$ and $\delta_{\mathrm{res},x}$ and $\delta_{\mathrm{res},y}$, respectively
 - A plot window capable of displaying azimuthally averaged PSD profiles for up to **ten** different elements simultaneously
+- Isotropic and anisotropic (i.e. $x$ and $y$) spatial resolutions $\delta_{\mathrm{res}}$ and $\delta_{\mathrm{res},x}$ and $\delta_{\mathrm{res},y}$, respectively
 
 # OS and File Requirements
 
@@ -63,6 +61,10 @@ $ python pyxrfpwr_launcher.py
 A manual for how to use PyXRFPower can be found inside the PyXRFPower repository: `pyxrfpwr_im.docx`  
 
 More details about PSD analysis can be found in a manuscript currently being drafted.
+
+# Contact
+
+Having trouble using PyXRFPower, noticing bugs, or thinking of recommandations for new features? Please contact <benjaminroter2026@u.northwestern.edu>.
 
 # References
 
