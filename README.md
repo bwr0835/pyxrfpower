@@ -12,7 +12,7 @@ PyXRFPower is a graphical user interface (GUI) designed to allow one to quickly 
 
 Mac, Linux, and Windows systems are all supported.
 
-Currently, HDF5 and Matlab files are supported; <ins>**however**</ins>, because synchrotron light sources can have different file structures, if the synchrotron of interest is not available, please either add it to `hdf5_extract.py` or `mat_extract.py`, or contact <benjaminroter2026@u.northwestern.edu> while including a sample file.
+Currently, HDF5 and Matlab files are supported; <ins>**however**</ins>, because synchrotron light sources can store data differently (i.e. have different file structures), if the synchrotron of interest is not available, please contact <benjaminroter2026@u.northwestern.edu> and provide a sample file so the structure can be included.
 
 # Introduction
 
