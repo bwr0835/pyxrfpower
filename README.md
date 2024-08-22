@@ -23,7 +23,7 @@ The 2D PSD for a particular element can be found via
 ```math
 \text{2D PSD} \equiv S\left(u_{x}, u_{y}\right) = \mathcal{F}\left\{\sqrt{I\left(x, y\right)}\right\}^{*}\mathcal{F}\left\{\sqrt{I\left(x, y\right)}\right\} = \left|\mathcal{F}\left\{\sqrt{I\left(x, y\right)}\right\}\right|^{2}.
 ```
-- $u_{x}, u_{y} \equiv x$, $y$ spatial frequencies extending out to $1/\left(2\Delta_{x}\right),$ $1/\left(2\Delta_{y}\right)$
+- $u_{x}, u_{y} \equiv x$, $y$ spatial frequencies extending out to $1/\left(2\Delta_{x}\right), 1/\left(2\Delta_{y}\right)$
   - $\Delta_{x}$, $\Delta_{y} \equiv x$, $y$ pixel sizes
 - $I \equiv$ fluorescence intensity
 
