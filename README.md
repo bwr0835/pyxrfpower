@@ -30,7 +30,7 @@ The 2D PSD for a particular element can be found via
 2D PSDs can be averaged over an arbitrary number of circles to produce azimuthally averaged PSDs $S\left(u_{r}\right).$
  - $u_{r} \equiv$ radial spatial frequency
 
-Spatial resolution can be estimated by fitting power law signal decays and noise floors relative to the frequency $u_{\mathrm{res}}$ at which the signal and noise meet ("knee frequency" $u_{\mathrm{knee}}$); however, because there is approximately equal mixing of signal and noise at $u_{r}$, finding $u_{\mathrm{res}}$ corresponding to an SNR greater than one, i.e. corresponding to a multiplicative factor greater than one, is will dilute the contributions to resolution from noise.
+Spatial resolution can be estimated by fitting power law signal decays and noise floors relative to the frequency $u_{\mathrm{res}}$ at which the signal and noise meet ("knee frequency" $u_{\mathrm{knee}}$); however, because there is approximately equal mixing of signal and noise at $u_{r}$, finding $u_{\mathrm{res}}$ corresponding to an SNR greater than one, i.e. corresponding to a multiplicative factor greater than one, will dilute the contributions to resolution from noise.
 
 Half-pitch/half-period spatial resolution $\delta_{\mathrm{res}}$ for an isotropic beam can be estimated as
 
