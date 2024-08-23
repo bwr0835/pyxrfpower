@@ -14,7 +14,7 @@ Mac, Linux, and Windows systems are all supported.
 
 Currently, HDF5 and MBLANK Matlab files (see [2]) are supported; <ins>**however**</ins>: 
 - For HDF5 files, because synchrotron light sources can store data differently (i.e. have different file structures), if the synchrotron of interest is not available, please contact <benjaminroter2026@u.northwestern.edu> and provide a sample file so the structure can be included.
-- If using a separate Matlab file structure, please send an email request to have that structure included.
+- If using a separate Matlab file structure, please send an email request along with a sample file to have that structure included.
 
 # Introduction
 
