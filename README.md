@@ -58,7 +58,7 @@ $ conda activate pyxrfpwr
 $ python pyxrfpwr_launcher.py
 ```
 
-# Instruction Manual and Additional Documentation
+# Additional Documentation
 
 A manual for how to use PyXRFPower can be found inside the PyXRFPower repository: `pyxrfpwr_im.docx`  
 
