@@ -2372,7 +2372,7 @@ class psd_launch(object):
                                        self.delta + "_res (" + self.mu + "m)"])
                     headings_2.extend(["S_dtf(u_r)", "S_nff(u_r)"])
 
-                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_backup, 
+                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_orig, 
                                       self.n_ur_backup, m, 10**b_lin, 10**b_hor, ur_cutoff_inv_um, dr_hp_um]
                     
                     data_headings2_line1 = [ur[0], psd_a[0]]
@@ -2389,7 +2389,7 @@ class psd_launch(object):
                         writer.writerows(data_headings2_rest)
 
                 else:
-                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_backup, self.n_ur_backup]
+                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_orig, self.n_ur_backup]
                     data_headings2 = np.column_stack((ur, psd_a))
 
                     with open(filepath, 'w', newline = "", encoding = 'utf-8') as f:
@@ -2499,7 +2499,7 @@ class psd_launch(object):
                         writer.writerows(data_headings3_rest)
                 
                 else:
-                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_backup, self.dy_um_backup, self.n_ur_backup]
+                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_backup, self.dy_um_orig, self.n_ur_backup]
                     data_headings2 = np.column_stack((ur_x, psd_a_x))
                     data_headings3 = np.column_stack((ur_y, psd_a_y))
 
