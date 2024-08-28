@@ -4,6 +4,9 @@
 
 # This is the main PyXRFPower control module.
 
+# Note: Some of the functions associated with closing a window via their window "close" buttons, 
+# as well as closing a window via "cancel" buttons, may mix, as PyQt cannot differentiate between the two.
+
 import os, sys, platform
 import pyxrfpwr_main_window, pyxrfpwr_change_pixel_dims, pyxrfpwr_img_preview, pyxrfpwr_img_2dpsd, pyxrfpwr_el_select, pyxrfpwr_psd_a, pyxrfpwr_res_params, pyxrfpwr_xy_res_params
 import numpy as np, csv, copy
