@@ -13,9 +13,7 @@
 .*.lb
 
 ## Do not keep saving updated compiled versions of files
-guis/psd/v1/__pycache__/*
-guis/psd/v2/__pycache__/*
-guis/psd/v3/__pycache__/*
+__pycache__/*
 
 ## Apple stuff
 *.DS_Store
