@@ -32,6 +32,7 @@ class psd_launch(object):
 
         self.file_startup_flag = 1
         self.fitting_enabled = 0
+        self.pixel_dims_changed = 0
 
         self.gui_directory_backup = None
         self.exp_backup = None
@@ -1418,38 +1419,58 @@ class psd_launch(object):
         self.gui.setDisabled(False)
         self.gui_psd_a.setDisabled(False)
 
+        self.gui_psd_a.pushButton_5.setDisabled(False)
+
         if self.gui_psd_a.isVisible():
-            self.gui.menuResolution_Parameter_Summary.setDisabled(False)
-
-            self.gui_psd_a.pushButton_5.setDisabled(False)
-            self.gui_psd_a.pushButton_6.setDisabled(False)
-
             if self.new_calculation:
                 self.gui_psd_a.widget.plotItem.clear()
                 
-                self.gui_psd_a.pushButton_6.setDisabled(True)
-
-                self.new_calculation = 0
+                if self.selected_element_strings_backup is None:
+                    self.gui_psd_a.pushButton_6.setDisabled(True)
+            
+            else:
+                self.gui.menuResolution_Parameter_Summary.setDisabled(False)
+                
+                self.gui_psd_a.pushButton_6.setDisabled(False)
         
         else:
-            self.selected_element_strings_backup = None
-
-            self.gui.menuView.setDisabled(False)
-            self.gui.menuResolution_Parameter_Summary.setDisabled(True)
-
-            self.gui_psd_a.doubleSpinBox.clear()
-            self.gui_psd_a.doubleSpinBox.setDisabled(True)
-            self.gui_psd_a.pushButton.setDisabled(True)
-            self.gui_psd_a.pushButton_2.setDisabled(True)
-            self.gui_psd_a.pushButton_3.setDisabled(True)
-            self.gui_psd_a.pushButton_4.setDisabled(True)
-            self.gui_psd_a.pushButton_6.setDisabled(True)
-            self.gui_psd_a.pushButton_7.setDisabled(True)
-            self.gui_psd_a.pushButton_8.setDisabled(True)
-
             if self.new_calculation:
                 self.gui_psd_a.clear_plot_widget_completely()
-                self.new_calculation = 0
+
+                self.selected_element_strings_backup = None
+
+                self.gui.menuView.setDisabled(False)
+                self.gui.menuResolution_Parameter_Summary.setDisabled(True)
+
+                self.gui_psd_a.doubleSpinBox.clear()
+                self.gui_psd_a.doubleSpinBox.setDisabled(True)
+                self.gui_psd_a.pushButton.setDisabled(True)
+                self.gui_psd_a.pushButton_2.setDisabled(True)
+                self.gui_psd_a.pushButton_3.setDisabled(True)
+                self.gui_psd_a.pushButton_4.setDisabled(True)
+                self.gui_psd_a.pushButton_6.setDisabled(True)
+                self.gui_psd_a.pushButton_7.setDisabled(True)
+                self.gui_psd_a.pushButton_8.setDisabled(True)
+            
+            else:
+                if self.circular_beam_checked:
+                    if len(self.res_params) > 0:
+                        self.gui.menuResolution_Parameter_Summary.setDisabled(False)
+                        self.gui.actionNon_Circular_X_ray_Beam.setDisabled(True)
+            
+                    else:
+                        self.gui.menuResolution_Parameter_Summary.setDisabled(True)
+        
+                else:
+                    if len(self.res_params_x) > 0:
+                        self.gui.menuResolution_Parameter_Summary.setDisabled(False)
+                        self.gui.actionCircular_X_ray_Beam.setDisabled(True)
+            
+                    else:
+                        self.gui.menuResolution_Parameter_Summary.setDisabled(True)
+                
+
+                self.gui_psd_a.pushButton_8.setDisabled(False)
 
             self.gui_psd_a.show()
 
@@ -2348,7 +2369,7 @@ class psd_launch(object):
                                        self.delta + "_res (" + self.mu + "m)"])
                     headings_2.extend(["S_dtf(u_r)", "S_nff(u_r)"])
 
-                    data_headings1 = [self.nx_backup_2, self.ny_backup_2, self.dx_um_backup, self.dy_um_backup, 
+                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_backup, 
                                       self.n_ur_backup, m, 10**b_lin, 10**b_hor, ur_cutoff_inv_um, dr_hp_um]
                     
                     data_headings2_line1 = [ur[0], psd_a[0]]
@@ -2365,7 +2386,7 @@ class psd_launch(object):
                         writer.writerows(data_headings2_rest)
 
                 else:
-                    data_headings1 = [self.nx_backup_2, self.ny_backup_2, self.dx_um_backup, self.dy_um_backup, self.n_ur_backup]
+                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_backup, self.n_ur_backup]
                     data_headings2 = np.column_stack((ur, psd_a))
 
                     with open(filepath, 'w', newline = "", encoding = 'utf-8') as f:
@@ -2450,7 +2471,7 @@ class psd_launch(object):
                     headings_2.extend(["S_x,dtf(u_r)", "S_x,nff"])
                     headings_3.extend(["S_y,dtf(u_r)", "S_y,nff"])
 
-                    data_headings1 = [self.nx_backup_2, self.ny_backup_2, self.dx_um_backup, self.dy_um_backup, 
+                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_orig, self.dy_um_orig, 
                                       self.n_ur_backup, m_x, m_y, 10**b_lin_x, 10**b_lin_y, 10**b_hor_x, 10**b_hor_y, ur_x_cutoff_inv_um, ur_y_cutoff_inv_um, 
                                       dr_x_hp_um, dr_y_hp_um]
                     
@@ -2475,7 +2496,7 @@ class psd_launch(object):
                         writer.writerows(data_headings3_rest)
                 
                 else:
-                    data_headings1 = [self.nx_backup_2, self.ny_backup_2, self.dx_um_backup, self.dy_um_backup, self.n_ur_backup]
+                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_backup, self.dy_um_backup, self.n_ur_backup]
                     data_headings2 = np.column_stack((ur_x, psd_a_x))
                     data_headings3 = np.column_stack((ur_y, psd_a_y))
 
