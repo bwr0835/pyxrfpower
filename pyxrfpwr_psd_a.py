@@ -300,9 +300,9 @@ class Ui_Form(QtWidgets.QWidget):
             element_index += 1
 
         self.widget.setLogMode(True, True)
-        self.widget.setXRange(np.log10(ur_element[1]), np.log10(ur_element[-2]), padding = 0)
+        self.widget.setXRange(np.log10(ur_element[1]), np.log10(ur_element[-1]), padding = 0)
         self.widget.setYRange(psd_a_min_log, 0.05 + psd_a_max_log, padding = 0)
-        self.widget.plotItem.setTitle("<i>S</i>(<i>u<sub>r</sub></i>) v. <i>u<sub>r</sub></i> [<i>n</i><sub><i>u<sub>r</sub></i></sub> = " + str(n_ur) + ")")
+        self.widget.plotItem.setTitle("<i>S</i>(<i>u<sub>r</sub></i>) v. <i>u<sub>r</sub></i> (<i>n</i><sub><i>u<sub>r</sub></i></sub> = " + str(n_ur) + ")")
         self.widget.plotItem.setLabel('left', "<i>S</i>(<i>u<sub>r</sub></i>)")
         self.widget.plotItem.setLabel('bottom', "<i>u<sub>r</sub></i> (" + self.mu + "m<sup>-1</sup>)")
         self.widget.plotItem.showGrid(True, True, alpha = 1)
