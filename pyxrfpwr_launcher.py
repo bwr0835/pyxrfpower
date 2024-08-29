@@ -1130,7 +1130,7 @@ class psd_launch(object):
         self.intensity_backup = copy.deepcopy(self.intensity)
         
         if circular_beam_checked:
-            self.lin_fit_dict = {}
+            self.lin_fit_dict = {} 
             self.lin_fit_dict_backup = {}
             self.hor_fit_dict = {}
             self.hor_fit_dict_backup = {}
@@ -1430,11 +1430,13 @@ class psd_launch(object):
                 
                 if self.selected_element_strings_backup is None:
                     self.gui_psd_a.pushButton_6.setDisabled(True)
+                    self.gui_psd_a.pushButton_8.setDisabled(True)
             
             else:
                 self.gui.menuResolution_Parameter_Summary.setDisabled(False)
                 
                 self.gui_psd_a.pushButton_6.setDisabled(False)
+                self.gui_psd_a.pushButton_8.setDisabled(False)
         
         else:
             if self.new_calculation:
@@ -1545,6 +1547,8 @@ class psd_launch(object):
             first_element_index = bytes(self.selected_element_strings_backup[0], 'utf-8')
             
             n_ur_good = len(self.psd_dict[first_element_index][0])
+
+            print(n_ur_good)
 
             if n_ur_good != self.n_ur_backup: # Warning if there are radial spatial frequency bins without contributing pixels (these frequencies are thrown out when plotting)
                 self.gui_psd_a.update_msg_box(f"""<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\"> Warning: Only <b>{n_ur_good}</b> radial spatial frequency bins are contributing to <i>S</i>(<i>u<sub>r</sub></i>). </span></p></body></html>""")
