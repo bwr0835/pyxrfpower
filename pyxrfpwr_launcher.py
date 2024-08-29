@@ -1493,8 +1493,6 @@ class psd_launch(object):
 
         self.gui_psd_a.plot_both_fits_enabled = 1 # Flag for making sure no fits are plotted for an element if only one fit exists
                                                   # resulting from cancellations in the middle of fitting
-        
-        self.gui_psd_a_el_select.close()
 
         if self.circular_beam_checked:
             if len(self.res_params) > 0:
@@ -1541,30 +1539,19 @@ class psd_launch(object):
                 self.gui_psd_a.doubleSpinBox.setDisabled(True)
                 self.gui_psd_a.pushButton_7.setDisabled(True)
             
-            current_file_index = self.gui.comboBox.currentIndex()
+            self.gui_psd_a.update_psd_a_plot(self.selected_elements, self.psd_dict, self.n_ur_backup, 
+                                             self.lin_fit_dict_backup, self.hor_fit_dict_backup, self.res_params_backup)
 
-            current_file = self.file_list[current_file_index]
+            first_element_index = bytes(self.selected_element_strings_backup[0], 'utf-8')
             
-            if current_file.endswith(".mat"):
-                try:
-                    self.gui_psd_a.update_psd_a_plot(self.selected_elements, self.psd_dict, self.n_ur_backup, 
-                                                     self.lin_fit_dict_backup, self.hor_fit_dict_backup, self.res_params_backup)
+            n_ur_good = len(self.psd_dict[first_element_index][0])
 
-                except:
-                    self.gui.update_error_msg("<html><head/><body><p><span style=\" font-weight:700; color:#ff2600;\">Cannot plot azimuthal PSD - check MATLAB file and/or azimuthal spatial frequency bin number.</span></p></body></html>")
-
-                    return
+            if n_ur_good != self.n_ur_backup: # Warning if there are radial spatial frequency bins without contributing pixels (these frequencies are thrown out when plotting)
+                self.gui_psd_a.update_msg_box(f"""<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\"> Warning: Only <b>{n_ur_good}</b> radial spatial frequency bins are contributing to <i>S</i>(<i>u<sub>r</sub></i>). </span></p></body></html>""")
             
             else:
-                try:
-                    self.gui_psd_a.update_psd_a_plot(self.selected_elements, self.psd_dict, self.n_ur_backup, 
-                                                 self.lin_fit_dict_backup, self.hor_fit_dict_backup, self.res_params_backup)
-                
-                except:
-                    self.gui.update_error_msg("<html><head/><body><p><span style=\" font-weight:700; color:#ff2600;\">Cannot plot azimuthal PSD - check azimuthal spatial frequency bin number.</span></p></body></html>")
+                self.gui_psd_a.update_msg_box()
 
-                    return
-        
         else:
             self.gui_psd_a.plot_both_x_and_y_enabled = 1
 
@@ -1582,38 +1569,19 @@ class psd_launch(object):
                 self.gui_psd_a.doubleSpinBox.clear()
                 self.gui_psd_a.doubleSpinBox.setDisabled(True)
                 self.gui_psd_a.pushButton_7.setDisabled(True)
-
-            current_file_index = self.gui.comboBox.currentIndex()
-
-            current_file = self.file_list[current_file_index]
             
-            if current_file.endswith(".mat"):
-                try:
-                    self.gui_psd_a.update_psd_a_plot_xy(self.selected_elements, self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, 
-                                                        self.lin_fit_dict_x_backup, self.lin_fit_dict_y_backup, 
-                                                        self.hor_fit_dict_x_backup, self.hor_fit_dict_y_backup,
-                                                        self.res_params_x_backup, self.res_params_y_backup)
-                
-                except:
-                    self.gui.update_error_msg("<html><head/><body><p><span style=\" font-weight:700; color:#ff2600;\">Cannot plot azimuthal PSD - check MATLAB file or and/or azimuthal frequency bin number.</span></p></body></html>")
+            self.gui_psd_a.update_psd_a_plot_xy(self.selected_elements, self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, 
+                                                self.lin_fit_dict_x_backup, self.lin_fit_dict_y_backup, 
+                                                self.hor_fit_dict_x_backup, self.hor_fit_dict_y_backup,
+                                                self.res_params_x_backup, self.res_params_y_backup)
 
-                    return
-            
-            else:
-                try:
-                    self.gui_psd_a.update_psd_a_plot_xy(self.selected_elements, self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, 
-                                                        self.lin_fit_dict_x_backup, self.lin_fit_dict_y_backup, 
-                                                        self.hor_fit_dict_x_backup, self.hor_fit_dict_y_backup,
-                                                        self.res_params_x_backup, self.res_params_y_backup)
-                
-                except:
-                    self.gui.update_error_msg("<html><head/><body><p><span style=\" font-weight:700; color:#ff2600;\">Cannot plot azimuthal PSD - check azimuthal spatial frequency bin number.</span></p></body></html>")
-                    
-                    return
-                
+            self.gui_psd_a.update_msg_box()
+        
         self.gui.update_error_msg()
-
+        
         self.gui_psd_a.vb.setMouseEnabled(x = False, y = False)
+
+        self.gui_psd_a_el_select.close()
 
         return
 

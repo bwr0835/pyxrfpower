@@ -26,7 +26,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.widget.setObjectName("widget")
         self.widget.setBackground('w')
         self.label = QtWidgets.QLabel(parent=Form)
-        self.label.setGeometry(QtCore.QRect(20, 10, 821, 41))
+        self.label.setGeometry(QtCore.QRect(20, 10, 391, 41))
         self.label.setText("")
         self.label.setObjectName("label")
         self.layoutWidget = QtWidgets.QWidget(parent=Form)
@@ -121,6 +121,11 @@ class Ui_Form(QtWidgets.QWidget):
         self.pushButton_7 = QtWidgets.QPushButton(parent=self.layoutWidget2)
         self.pushButton_7.setObjectName("pushButton_7")
         self.gridLayout.addWidget(self.pushButton_7, 0, 2, 1, 1)
+        self.label_7 = QtWidgets.QLabel(parent=Form)
+        self.label_7.setGeometry(QtCore.QRect(450, 10, 381, 41))
+        self.label_7.setText("")
+        self.label_7.setWordWrap(True)
+        self.label_7.setObjectName("label_7")
 
         self.x_enabled = 0
         
@@ -295,9 +300,9 @@ class Ui_Form(QtWidgets.QWidget):
             element_index += 1
 
         self.widget.setLogMode(True, True)
-        self.widget.setXRange(np.log10(ur_element[1]), np.log10(ur_element[n_ur - 1]), padding = 0)
+        self.widget.setXRange(np.log10(ur_element[1]), np.log10(ur_element[-2]), padding = 0)
         self.widget.setYRange(psd_a_min_log, 0.05 + psd_a_max_log, padding = 0)
-        self.widget.plotItem.setTitle("<i>S</i>(<i>u<sub>r</sub></i>) v. <i>u<sub>r</sub></i> (<i>n</i><sub><i>u<sub>r</sub></i></sub> = " + str(n_ur) + ")")
+        self.widget.plotItem.setTitle("<i>S</i>(<i>u<sub>r</sub></i>) v. <i>u<sub>r</sub></i> [<i>n</i><sub><i>u<sub>r</sub></i></sub> = " + str(n_ur) + ")")
         self.widget.plotItem.setLabel('left', "<i>S</i>(<i>u<sub>r</sub></i>)")
         self.widget.plotItem.setLabel('bottom', "<i>u<sub>r</sub></i> (" + self.mu + "m<sup>-1</sup>)")
         self.widget.plotItem.showGrid(True, True, alpha = 1)
@@ -370,12 +375,6 @@ class Ui_Form(QtWidgets.QWidget):
 
         psd_a_min_log = np.log10(psd_a_min)
         psd_a_max_log = np.log10(psd_a_max)
-
-        if np.abs(psd_a_min_log) == np.Inf: # Dead pixels
-            psd_a_min_log = -1e8
-        
-        if np.abs(psd_a_max_log) == np.Inf: # Dead pixels
-            psd_a_max_log = -1e8
 
         for element in selected_elements:
             color_index = element_index % len(self.color_array)
@@ -607,7 +606,7 @@ class Ui_Form(QtWidgets.QWidget):
 
                     self.widget.addItem(self.psd_a_loglog_shaded)
 
-                    self.lr.setBounds((np.log10(self.ur_element[1]), np.log10(self.ur_element[self.n_ur - 1])))
+                    self.lr.setBounds((np.log10(self.ur_element[1]), np.log10(self.ur_element[-1])))
                 
                 else:
                     if self.x_enabled:
@@ -690,6 +689,15 @@ class Ui_Form(QtWidgets.QWidget):
         
         self.widget.setXRange(0, 1)
         self.widget.setYRange(0, 1)
+
+    def update_msg_box(self, msg = None):
+        if msg is not None:
+            self.label_7.setText(msg)
+        
+        else:
+            self.label_7.clear()
+        
+        return
 
     def closeEvent(self, ev):
         self.psd_a_window_closed.emit()
