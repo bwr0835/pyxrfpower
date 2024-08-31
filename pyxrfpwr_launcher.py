@@ -1738,11 +1738,11 @@ class psd_launch(object):
             psd_a_element_shaded = psd_a_element[self.gui_psd_a.idx]
             
             if "data trend" in text:
-                m, b_lin = np.polyfit(np.log10(ur_element_shaded), np.log10(psd_a_element_shaded), deg = 1)
+                m, P = np.polyfit(np.log10(ur_element_shaded), np.log10(psd_a_element_shaded), deg = 1)
 
-                psd_a_lin_fit = 10**(m*np.log10(ur_element[1:]) + b_lin)
+                psd_a_lin_fit = 10**(m*np.log10(ur_element[1:]) + P)
 
-                self.lin_fit_dict[element] = [psd_a_lin_fit, m, b_lin]
+                self.lin_fit_dict[element] = [psd_a_lin_fit, m, P]
 
                 self.gui_psd_a.update_psd_a_plot([element], self.psd_dict, self.n_ur_backup, self.lin_fit_dict)
                 self.gui_psd_a.widget.addItem(self.gui_psd_a.lr)
@@ -1751,15 +1751,15 @@ class psd_launch(object):
                 self.gui_psd_a.label_4.clear()
                 self.gui_psd_a.label_4.setText(str(rc(m, ndec = 7)))
                 self.gui_psd_a.label_5.clear()
-                self.gui_psd_a.label_5.setText(str(rc(10**b_lin, ndec = 7)))
+                self.gui_psd_a.label_5.setText(str(rc(10**P, ndec = 7)))
                 self.gui_psd_a.pushButton_2.setDisabled(True)
                 self.gui_psd_a.pushButton_3.setDisabled(False)
              
             elif "noise floor" in text:
-                b_hor = np.mean(np.log10(psd_a_element_shaded))
-                psd_a_hor_fit = 10**(b_hor*np.ones(len(ur_element) - 1))
+                nf = np.mean(np.log10(psd_a_element_shaded))
+                psd_a_hor_fit = 10**(nf*np.ones(len(ur_element) - 1))
 
-                self.hor_fit_dict[element] = [psd_a_hor_fit, b_hor]
+                self.hor_fit_dict[element] = [psd_a_hor_fit, nf]
 
                 self.gui_psd_a.update_psd_a_plot([element], self.psd_dict, self.n_ur_backup, self.hor_fit_dict)
                 self.gui_psd_a.widget.addItem(self.gui_psd_a.lr)
@@ -1767,7 +1767,7 @@ class psd_launch(object):
 
                 self.gui_psd_a.pushButton_2.setDisabled(True)
                 self.gui_psd_a.label_5.clear()
-                self.gui_psd_a.label_5.setText(str(rc(10**b_hor, ndec = 7)))
+                self.gui_psd_a.label_5.setText(str(rc(10**nf, ndec = 7)))
 
                 if self.idx == len(self.selected_elements) - 1:
                     self.gui_psd_a.pushButton_4.setDisabled(False)
@@ -1784,19 +1784,19 @@ class psd_launch(object):
                     ur_x_element_shaded = ur_x_element[self.gui_psd_a.idx]
                     psd_a_x_element_shaded = psd_a_x_element[self.gui_psd_a.idx]
                     
-                    m_x, b_lin_x = np.polyfit(np.log10(ur_x_element_shaded), np.log10(psd_a_x_element_shaded), deg = 1)
-                    psd_a_x_lin_fit = 10**(m_x*np.log10(ur_x_element[1:]) + b_lin_x)
+                    a_x, P_x = np.polyfit(np.log10(ur_x_element_shaded), np.log10(psd_a_x_element_shaded), deg = 1)
+                    psd_a_x_lin_fit = 10**(a_x*np.log10(ur_x_element[1:]) + P_x)
 
-                    self.lin_fit_dict_x[element] = [psd_a_x_lin_fit, m_x, b_lin_x]
+                    self.lin_fit_dict_x[element] = [psd_a_x_lin_fit, a_x, P_x]
 
                     self.gui_psd_a.update_psd_a_plot_xy([element], self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, self.lin_fit_dict_x)
                     self.gui_psd_a.widget.addItem(self.gui_psd_a.lr)
                     self.gui_psd_a.lr.hide()
 
                     self.gui_psd_a.label_4.clear()
-                    self.gui_psd_a.label_4.setText(str(rc(m_x, ndec = 7)))
+                    self.gui_psd_a.label_4.setText(str(rc(a_x, ndec = 7)))
                     self.gui_psd_a.label_5.clear()
-                    self.gui_psd_a.label_5.setText(str(rc(10**b_lin_x, ndec = 7)))
+                    self.gui_psd_a.label_5.setText(str(rc(10**P_x, ndec = 7)))
                 
                 else:
                     ur_y_element = self.psd_dict[element][1]
@@ -1805,19 +1805,19 @@ class psd_launch(object):
                     ur_y_element_shaded = ur_y_element[self.gui_psd_a.idx]
                     psd_a_y_element_shaded = psd_a_y_element[self.gui_psd_a.idx]
                     
-                    m_y, b_lin_y = np.polyfit(np.log10(ur_y_element_shaded), np.log10(psd_a_y_element_shaded), deg = 1)
-                    psd_a_y_lin_fit = 10**(m_y*np.log10(ur_y_element[1:]) + b_lin_y)
+                    a_y, P_y = np.polyfit(np.log10(ur_y_element_shaded), np.log10(psd_a_y_element_shaded), deg = 1)
+                    psd_a_y_lin_fit = 10**(a_y*np.log10(ur_y_element[1:]) + P_y)
 
-                    self.lin_fit_dict_y[element] = [psd_a_y_lin_fit, m_y, b_lin_y]
+                    self.lin_fit_dict_y[element] = [psd_a_y_lin_fit, a_y, P_y]
 
                     self.gui_psd_a.update_psd_a_plot_xy([element], self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, None, self.lin_fit_dict_y)
                     self.gui_psd_a.widget.addItem(self.gui_psd_a.lr)
                     self.gui_psd_a.lr.hide()
 
                     self.gui_psd_a.label_4.clear()
-                    self.gui_psd_a.label_4.setText(str(rc(m_y, ndec = 7)))
+                    self.gui_psd_a.label_4.setText(str(rc(a_y, ndec = 7)))
                     self.gui_psd_a.label_5.clear()
-                    self.gui_psd_a.label_5.setText(str(rc(10**b_lin_y, ndec = 7)))
+                    self.gui_psd_a.label_5.setText(str(rc(10**P_y, ndec = 7)))
                 
                 self.gui_psd_a.pushButton_2.setDisabled(True)
                 self.gui_psd_a.pushButton_3.setDisabled(False)
@@ -1830,10 +1830,10 @@ class psd_launch(object):
                     ur_x_element_shaded = ur_x_element[self.gui_psd_a.idx]
                     psd_a_x_element_shaded = psd_a_x_element[self.gui_psd_a.idx]
 
-                    b_hor_x = np.mean(np.log10(psd_a_x_element_shaded))
-                    psd_a_x_hor_fit = 10**(b_hor_x*np.ones(len(ur_x_element) - 1))
+                    nf_x = np.mean(np.log10(psd_a_x_element_shaded))
+                    psd_a_x_hor_fit = 10**(nf_x*np.ones(len(ur_x_element) - 1))
 
-                    self.hor_fit_dict_x[element] = [psd_a_x_hor_fit, b_hor_x]
+                    self.hor_fit_dict_x[element] = [psd_a_x_hor_fit, nf_x]
 
                     self.gui_psd_a.update_psd_a_plot_xy([element], self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, self.hor_fit_dict_x)
                     self.gui_psd_a.widget.addItem(self.gui_psd_a.lr)
@@ -1842,7 +1842,7 @@ class psd_launch(object):
                     self.gui_psd_a.pushButton_2.setDisabled(True)
                     self.gui_psd_a.pushButton_3.setDisabled(False)
                     self.gui_psd_a.label_5.clear()
-                    self.gui_psd_a.label_5.setText(str(rc(10**b_hor_x, ndec = 7)))
+                    self.gui_psd_a.label_5.setText(str(rc(10**nf_x, ndec = 7)))
                 
                 else:
                     ur_y_element = self.psd_dict[element][1]
@@ -1851,10 +1851,10 @@ class psd_launch(object):
                     ur_y_element_shaded = ur_y_element[self.gui_psd_a.idx]
                     psd_a_y_element_shaded = psd_a_y_element[self.gui_psd_a.idx]
                     
-                    b_hor_y = np.mean(np.log10(psd_a_y_element_shaded))
-                    psd_a_y_hor_fit = 10**(b_hor_y*np.ones(len(ur_y_element) - 1))
+                    nf_y = np.mean(np.log10(psd_a_y_element_shaded))
+                    psd_a_y_hor_fit = 10**(nf_y*np.ones(len(ur_y_element) - 1))
 
-                    self.hor_fit_dict_y[element] = [psd_a_y_hor_fit, b_hor_y]
+                    self.hor_fit_dict_y[element] = [psd_a_y_hor_fit, nf_y]
 
                     self.gui_psd_a.update_psd_a_plot_xy([element], self.psd_dict, self.n_ur_backup, self.gui_psd_a.x_enabled, None, self.hor_fit_dict_y)
                     self.gui_psd_a.widget.addItem(self.gui_psd_a.lr)
@@ -1862,7 +1862,7 @@ class psd_launch(object):
 
                     self.gui_psd_a.pushButton_2.setDisabled(True)
                     self.gui_psd_a.label_5.clear()
-                    self.gui_psd_a.label_5.setText(str(rc(10**b_hor_y, ndec = 7)))
+                    self.gui_psd_a.label_5.setText(str(rc(10**nf_y, ndec = 7)))
 
                     if self.idx == len(self.selected_elements) - 1:
                         self.gui_psd_a.pushButton_4.setDisabled(False)
@@ -2045,12 +2045,12 @@ class psd_launch(object):
         if self.circular_beam_checked:
             for element in self.selected_elements:
                 if self.lin_fit_dict.get(element) is not None:
-                    m = self.lin_fit_dict[element][1]
-                    b_lin = self.lin_fit_dict[element][2]
-                    b_hor = self.hor_fit_dict[element][1]
+                    a = self.lin_fit_dict[element][1]
+                    P = self.lin_fit_dict[element][2]
+                    nf = self.hor_fit_dict[element][1]
 
-                    psd_a_cutoff = self.snr_cutoff*(10**b_hor)
-                    ur_cutoff_inv_um = (psd_a_cutoff*10**-b_lin)**(1/m)
+                    psd_a_cutoff = self.snr_cutoff*(10**nf)
+                    ur_cutoff_inv_um = (psd_a_cutoff*10**-P)**(1/a)
                     dr_hp_um = 0.5/ur_cutoff_inv_um
 
                     self.res_params[element] = [psd_a_cutoff, ur_cutoff_inv_um, dr_hp_um]
@@ -2067,17 +2067,17 @@ class psd_launch(object):
         else:
             for element in self.selected_elements:
                 if self.lin_fit_dict_x.get(element) is not None:
-                    m_x = self.lin_fit_dict_x[element][1]
-                    m_y = self.lin_fit_dict_y[element][1]
-                    b_lin_x = self.lin_fit_dict_x[element][2]
-                    b_lin_y = self.lin_fit_dict_y[element][2]
-                    b_hor_x = self.hor_fit_dict_x[element][1]
-                    b_hor_y = self.hor_fit_dict_y[element][1]
+                    a_x = self.lin_fit_dict_x[element][1]
+                    a_y = self.lin_fit_dict_y[element][1]
+                    P_x = self.lin_fit_dict_x[element][2]
+                    P_y = self.lin_fit_dict_y[element][2]
+                    nf_x = self.hor_fit_dict_x[element][1]
+                    nf_y = self.hor_fit_dict_y[element][1]
 
-                    psd_a_x_cutoff = self.snr_cutoff*(10**b_hor_x)
-                    psd_a_y_cutoff = self.snr_cutoff*(10**b_hor_y)
-                    ur_x_cutoff_inv_um = (psd_a_x_cutoff*10**-b_lin_x)**(1/m_x)
-                    ur_y_cutoff_inv_um = (psd_a_y_cutoff*10**-b_lin_y)**(1/m_y)
+                    psd_a_x_cutoff = self.snr_cutoff*(10**nf_x)
+                    psd_a_y_cutoff = self.snr_cutoff*(10**nf_y)
+                    ur_x_cutoff_inv_um = (psd_a_x_cutoff*10**-P_x)**(1/a_x)
+                    ur_y_cutoff_inv_um = (psd_a_y_cutoff*10**-P_y)**(1/a_y)
                     dr_hp_x_um = 0.5/ur_x_cutoff_inv_um
                     dr_hp_y_um = 0.5/ur_y_cutoff_inv_um
 
@@ -2334,18 +2334,18 @@ class psd_launch(object):
                 if self.res_params.get(element) is not None:
                     psd_a_lin_fit = self.lin_fit_dict[element][0]
                     psd_a_hor_fit = self.hor_fit_dict[element][0]
-                    m = self.lin_fit_dict[element][1]
-                    b_lin = self.lin_fit_dict[element][2]
-                    b_hor = self.hor_fit_dict[element][1]
+                    a = self.lin_fit_dict[element][1]
+                    P = self.lin_fit_dict[element][2]
+                    nf = self.hor_fit_dict[element][1]
                     ur_cutoff_inv_um = self.res_params[element][1]
                     dr_hp_um = self.res_params[element][2]
 
-                    headings_1.extend(["m_lin (" + self.mu + "m)", "b_lin", "b_hor", "u_res (" + self.mu + "m^-1)", 
+                    headings_1.extend(["a", "P", "S_nf", "u_res (" + self.mu + "m^-1)", 
                                        self.delta + "_res (" + self.mu + "m)"])
                     headings_2.extend(["S_dtf(u_r)", "S_nff(u_r)"])
 
                     data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_orig, 
-                                      self.n_ur_backup, m, 10**b_lin, 10**b_hor, ur_cutoff_inv_um, dr_hp_um]
+                                      self.n_ur_backup, a, 10**P, 10**nf, ur_cutoff_inv_um, dr_hp_um]
                     
                     data_headings2_line1 = [ur[0], psd_a[0]]
                     data_headings2_rest = np.column_stack((ur[1:], psd_a[1:], psd_a_lin_fit, psd_a_hor_fit))
@@ -2377,7 +2377,7 @@ class psd_launch(object):
                 filename = "psd_a_slope_res_outputs_" + file_name
                 filepath = os.path.join(export_path, filename) + ".csv"
 
-                headings_3 = ["Element", "m (" + self.mu + "m)", "u_res (" + self.mu + "m^-1)", self.delta + "_res (" + self.mu + "m)"]
+                headings_3 = ["Element", "a", "u_res (" + self.mu + "m^-1)", self.delta + "_res (" + self.mu + "m)"]
 
                 with open(filepath, 'w', newline = "", encoding = 'utf-8-sig') as f:
                     writer = csv.writer(f)
@@ -2389,11 +2389,11 @@ class psd_launch(object):
                         element_string = self.elements_string[j]
 
                         if self.res_params.get(element) is not None:
-                            m = self.lin_fit_dict[element][1]
+                            a = self.lin_fit_dict[element][1]
                             ur_cutoff_inv_um = self.res_params[element][1]
                             dr_hp_um = self.res_params[element][2]
                     
-                            writer.writerow([element_string, m, ur_cutoff_inv_um, dr_hp_um])
+                            writer.writerow([element_string, a, ur_cutoff_inv_um, dr_hp_um])
         
         else:
             filename = "psd_a_xy_" + file_name
@@ -2426,13 +2426,13 @@ class psd_launch(object):
                     psd_a_x_hor_fit = self.hor_fit_dict_x[element][0]
                     psd_a_y_hor_fit = self.hor_fit_dict_y[element][0]
 
-                    m_x = self.lin_fit_dict_x[element][1]
-                    m_y = self.lin_fit_dict_y[element][1]
+                    a_x = self.lin_fit_dict_x[element][1]
+                    a_y = self.lin_fit_dict_y[element][1]
                     
-                    b_lin_x = self.lin_fit_dict_x[element][2]
-                    b_lin_y = self.lin_fit_dict_y[element][2]
-                    b_hor_x = self.hor_fit_dict_x[element][1]
-                    b_hor_y = self.hor_fit_dict_y[element][1]
+                    P_x = self.lin_fit_dict_x[element][2]
+                    P_y = self.lin_fit_dict_y[element][2]
+                    nf_x = self.hor_fit_dict_x[element][1]
+                    nf_y = self.hor_fit_dict_y[element][1]
                     
                     ur_x_cutoff_inv_um = self.res_params_x[element][1]
                     ur_y_cutoff_inv_um = self.res_params_y[element][1]
@@ -2440,14 +2440,14 @@ class psd_launch(object):
                     dr_x_hp_um = self.res_params_x[element][2]
                     dr_y_hp_um = self.res_params_y[element][2]
 
-                    headings_1.extend(["m_lin,x (" + self.mu + "m)", "m_lin,y (" + self.mu + "m)", 
-                                       "b_lin,x", "b_lin,y", "b_hor,x", "b_hor,y", "u_res,x (" + self.mu + "m^-1)",
+                    headings_1.extend(["a,x", "a,y", 
+                                       "P,x", "P,y", "S_nf,x", "S_nf,y", "u_res,x (" + self.mu + "m^-1)",
                                        "u_res,y (" + self.mu + "m^-1)", self.delta + "_res,x (" + self.mu + "m)", self.delta + "_res,y (" + self.mu + "m)"])
                     headings_2.extend(["S_x,dtf(u_r)", "S_x,nff"])
                     headings_3.extend(["S_y,dtf(u_r)", "S_y,nff"])
 
                     data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_orig, self.dy_um_orig, 
-                                      self.n_ur_backup, m_x, m_y, 10**b_lin_x, 10**b_lin_y, 10**b_hor_x, 10**b_hor_y, ur_x_cutoff_inv_um, ur_y_cutoff_inv_um, 
+                                      self.n_ur_backup, a_x, a_y, 10**P_x, 10**P_y, 10**nf_x, 10**nf_y, ur_x_cutoff_inv_um, ur_y_cutoff_inv_um, 
                                       dr_x_hp_um, dr_y_hp_um]
                     
                     data_headings2_line1 = [ur_x[0], psd_a_x[0]]
@@ -2491,7 +2491,7 @@ class psd_launch(object):
                 filename = "psd_a_slope_res_xy_outputs_" + file_name
                 filepath = os.path.join(export_path, filename) + ".csv"
 
-                headings_4 = ["Element", "m_x (" + self.mu + "m)", "m_y (" + self.mu + "m)",
+                headings_4 = ["Element", "a_x (" + self.mu + "m)", "a_y (" + self.mu + "m)",
                               "u_res,x (" + self.mu + "m^-1)", "u_res,y (" + self.mu + "m^-1)", 
                               self.delta + "_res,x (" + self.mu + "m)", self.delta + "_res,y (" + self.mu + "m)"]
                 
@@ -2505,8 +2505,8 @@ class psd_launch(object):
                         element_string = self.elements_string[j]
 
                         if self.res_params_x.get(element) is not None:
-                            m_x = self.lin_fit_dict_x[element][1]
-                            m_y = self.lin_fit_dict_y[element][1]
+                            a_x = self.lin_fit_dict_x[element][1]
+                            a_y = self.lin_fit_dict_y[element][1]
                             
                             ur_x_cutoff_inv_um = self.res_params_x[element][1]
                             ur_y_cutoff_inv_um = self.res_params_y[element][1]
@@ -2514,7 +2514,7 @@ class psd_launch(object):
                             dr_x_hp_um = self.res_params_x[element][2]
                             dr_y_hp_um = self.res_params_y[element][2]
                     
-                            writer.writerow([element_string, m_x, m_y, ur_x_cutoff_inv_um, ur_y_cutoff_inv_um, dr_x_hp_um, dr_y_hp_um])
+                            writer.writerow([element_string, a_x, a_y, ur_x_cutoff_inv_um, ur_y_cutoff_inv_um, dr_x_hp_um, dr_y_hp_um])
 
         self.gui.setDisabled(False)
         self.gui_plots_2d.setDisabled(False)
