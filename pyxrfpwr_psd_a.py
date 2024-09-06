@@ -255,9 +255,9 @@ class Ui_Form(QtWidgets.QWidget):
             element_text.setPos(offset + np.log10(ur_element[ur_element_index]), offset + np.log10(psd_a_element[ur_element_index + 1]))
 
             if res_output is not None and res_output.get(element) is not None and self.plot_both_fits_enabled:
-                psd_a_cutoff = res_output[element][0]
-                ur_cutoff = res_output[element][1]
-                dr_hp = res_output[element][2]
+                psd_a_res = res_output[element][0]
+                ur_res = res_output[element][1]
+                dr_res = res_output[element][2]
                 
                 pen = pg.mkPen(selected_color, width = 3, style = QtCore.Qt.PenStyle.DashLine)
                 psd_a_lin_fit_loglog = pg.PlotDataItem(ur_element[1:], psd_a_lin_fit, pen = pen)
@@ -271,28 +271,28 @@ class Ui_Form(QtWidgets.QWidget):
                 symbolPen = pg.mkPen(selected_color)
                 symbolBrush = pg.mkBrush(selected_color)
 
-                psd_a_cutoff_point_loglog = pg.PlotDataItem([ur_cutoff], [psd_a_cutoff], pen = None, symbol = 'o', symbolPen = symbolPen, 
+                psd_a_res_point_loglog = pg.PlotDataItem([ur_res], [psd_a_res], pen = None, symbol = 'o', symbolPen = symbolPen, 
                                                           symbolBrush = symbolBrush)
                 
                 pen = pg.mkPen(selected_color, width = 3, style = QtCore.Qt.PenStyle.DashDotLine)
 
-                ur_cutoff_vert_line = pg.PlotDataItem([ur_cutoff, ur_cutoff], [10**psd_a_min_log, psd_a_cutoff], pen = pen)
+                ur_res_vert_line = pg.PlotDataItem([ur_res, ur_res], [10**psd_a_min_log, psd_a_res], pen = pen)
 
                 res_param_text = pg.TextItem("", **{'color': selected_color})
-                res_param_text.setHtml(str(rc(ur_cutoff, ndec = 7)) + " " + self.mu + "m<sup>-1</sup> (" 
-                                        + str(rc(dr_hp, ndec = 7)) + " " + self.mu + "m)")
+                res_param_text.setHtml(str(rc(ur_res, ndec = 7)) + " " + self.mu + "m<sup>-1</sup> (" 
+                                        + str(rc(dr_res, ndec = 7)) + " " + self.mu + "m)")
 
-                self.widget.addItem(psd_a_cutoff_point_loglog)
-                self.widget.addItem(ur_cutoff_vert_line)
+                self.widget.addItem(psd_a_res_point_loglog)
+                self.widget.addItem(ur_res_vert_line)
                 self.widget.addItem(res_param_text)
 
-                res_param_text.setPos(offset + np.log10(ur_cutoff), offset + np.log10(psd_a_cutoff))
+                res_param_text.setPos(offset + np.log10(ur_res), offset + np.log10(psd_a_res))
 
                 if legend_flag:
                     self.legend.addItem(psd_a_loglog, "Measured Data")
                     self.legend.addItem(psd_a_lin_fit_loglog, "Data Trend Fit")
                     self.legend.addItem(psd_a_hor_fit_loglog, "Noise Floor Fit")
-                    self.legend.addItem(psd_a_cutoff_point_loglog, "<i>u</i><sub>cutoff</sub> (" + self.delta + "<sub>hp</sub>)")
+                    self.legend.addItem(psd_a_res_point_loglog, "<i>u</i><sub>res</sub> (" + self.delta + "<sub>res</sub>)")
 
                     legend_flag = 0
             
@@ -495,12 +495,12 @@ class Ui_Form(QtWidgets.QWidget):
                     self.widget.setYRange(np.log10(psd_a_y_min), np.log10(psd_a_y_max), padding = 0)
             
             if (res_x_output is not None and res_x_output.get(element) is not None) and (res_y_output is not None and res_y_output.get(element) is not None) and self.plot_both_x_and_y_enabled:
-                psd_a_x_cutoff = res_x_output[element][0]
-                psd_a_y_cutoff = res_y_output[element][0]
-                ur_x_cutoff = res_x_output[element][1]
-                ur_y_cutoff = res_y_output[element][1]
-                dr_x_hp = res_x_output[element][2]
-                dr_y_hp = res_y_output[element][2]
+                psd_a_x_res = res_x_output[element][0]
+                psd_a_y_res = res_y_output[element][0]
+                ur_x_res = res_x_output[element][1]
+                ur_y_res = res_y_output[element][1]
+                dr_x_res = res_x_output[element][2]
+                dr_y_res = res_y_output[element][2]
 
                 pen_x = pg.mkPen(selected_color, width = 3, style = QtCore.Qt.PenStyle.DotLine)
                 pen_y = pg.mkPen(selected_color_tinted, width = 3, style = QtCore.Qt.PenStyle.DotLine)
@@ -511,35 +511,35 @@ class Ui_Form(QtWidgets.QWidget):
                 symbolBrush_x = pg.mkBrush(selected_color)
                 symbolBrush_y = pg.mkBrush(selected_color_tinted)
 
-                psd_a_x_cutoff_point_loglog = pg.PlotDataItem([ur_x_cutoff], [psd_a_x_cutoff], pen = None, symbol = 'o', 
+                psd_a_x_res_point_loglog = pg.PlotDataItem([ur_x_res], [psd_a_x_res], pen = None, symbol = 'o', 
                                                               symbolPen = symbolPen_x, symbolBrush = symbolBrush_x)
-                psd_a_y_cutoff_point_loglog = pg.PlotDataItem([ur_y_cutoff], [psd_a_y_cutoff], pen = None, symbol = 'o', 
+                psd_a_y_res_point_loglog = pg.PlotDataItem([ur_y_res], [psd_a_y_res], pen = None, symbol = 'o', 
                                                               symbolPen = symbolPen_y, symbolBrush = symbolBrush_y)
                 
 
                 pen_x = pg.mkPen(selected_color, width = 3, style = QtCore.Qt.PenStyle.DashDotLine)
                 pen_y = pg.mkPen(selected_color_tinted, width = 3, style = QtCore.Qt.PenStyle.DashDotLine)
 
-                ur_x_cutoff_vert_line = pg.PlotDataItem([ur_x_cutoff, ur_x_cutoff], [10**psd_a_min_log, psd_a_x_cutoff], pen = pen_x)
-                ur_y_cutoff_vert_line = pg.PlotDataItem([ur_y_cutoff, ur_y_cutoff], [10**psd_a_min_log, psd_a_y_cutoff], pen = pen_y)
+                ur_x_res_vert_line = pg.PlotDataItem([ur_x_res, ur_x_res], [10**psd_a_min_log, psd_a_x_res], pen = pen_x)
+                ur_y_res_vert_line = pg.PlotDataItem([ur_y_res, ur_y_res], [10**psd_a_min_log, psd_a_y_res], pen = pen_y)
 
                 res_x_param_text = pg.TextItem("", **{'color': selected_color})
-                res_x_param_text.setHtml(str(rc(ur_x_cutoff, ndec = 7)) + " " + self.mu + "m<sup>-1</sup> (" 
-                                        + str(rc(dr_x_hp, ndec = 7)) + " " + self.mu + "m)")
+                res_x_param_text.setHtml(str(rc(ur_x_res, ndec = 7)) + " " + self.mu + "m<sup>-1</sup> (" 
+                                        + str(rc(dr_x_res, ndec = 7)) + " " + self.mu + "m)")
 
                 res_y_param_text = pg.TextItem("", **{'color': selected_color_tinted})
-                res_y_param_text.setHtml(str(rc(ur_y_cutoff, ndec = 7)) + " " + self.mu + "m<sup>-1</sup> (" 
-                                        + str(rc(dr_y_hp, ndec = 7)) + " " + self.mu + "m)")
+                res_y_param_text.setHtml(str(rc(ur_y_res, ndec = 7)) + " " + self.mu + "m<sup>-1</sup> (" 
+                                        + str(rc(dr_y_res, ndec = 7)) + " " + self.mu + "m)")
 
-                self.widget.addItem(psd_a_x_cutoff_point_loglog)
-                self.widget.addItem(psd_a_y_cutoff_point_loglog)
-                self.widget.addItem(ur_x_cutoff_vert_line)
-                self.widget.addItem(ur_y_cutoff_vert_line)
+                self.widget.addItem(psd_a_x_res_point_loglog)
+                self.widget.addItem(psd_a_y_res_point_loglog)
+                self.widget.addItem(ur_x_res_vert_line)
+                self.widget.addItem(ur_y_res_vert_line)
                 self.widget.addItem(res_x_param_text)
                 self.widget.addItem(res_y_param_text)
                 
-                res_x_param_text.setPos(offset + np.log10(ur_x_cutoff), offset + np.log10(psd_a_x_cutoff))
-                res_y_param_text.setPos(offset + np.log10(ur_y_cutoff), offset + np.log10(psd_a_y_cutoff))
+                res_x_param_text.setPos(offset + np.log10(ur_x_res), offset + np.log10(psd_a_x_res))
+                res_y_param_text.setPos(offset + np.log10(ur_y_res), offset + np.log10(psd_a_y_res))
 
                 if legend_flag:
                     self.legend.addItem(psd_a_x_loglog, "Measured Data (<i>x</i>)")
@@ -548,10 +548,10 @@ class Ui_Form(QtWidgets.QWidget):
                     self.legend.addItem(psd_a_y_lin_fit_loglog, "Data Trend Fit (<i>y</i>)")
                     self.legend.addItem(psd_a_x_hor_fit_loglog, "Noise Floor Fit (<i>x</i>)")
                     self.legend.addItem(psd_a_y_hor_fit_loglog, "Noise Floor Fit (<i>y</i>)")
-                    self.legend.addItem(psd_a_x_cutoff_point_loglog, 
-                                        "<i>u</i><sub>cutoff</sub> (" + self.delta + "<sub>hp,<i>x</i></sub>)")
-                    self.legend.addItem(psd_a_y_cutoff_point_loglog, 
-                                        "<i>u</i><sub>cutoff</sub> (" + self.delta + "<sub>hp,<i>y</i></sub>)")
+                    self.legend.addItem(psd_a_x_res_point_loglog, 
+                                        "<i>u</i><sub>res</sub> (" + self.delta + "<sub>res,<i>x</i></sub>)")
+                    self.legend.addItem(psd_a_y_res_point_loglog, 
+                                        "<i>u</i><sub>res</sub> (" + self.delta + "<sub>res,<i>y</i></sub>)")
 
                     legend_flag = 0
             
