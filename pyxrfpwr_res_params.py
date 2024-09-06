@@ -99,4 +99,5 @@ class Ui_Form(QtWidgets.QWidget):
 class AlignDelegate(QtWidgets.QStyledItemDelegate):
     def initStyleOption(self, option, index):
         super(AlignDelegate, self).initStyleOption(option, index)
+        
         option.displayAlignment = QtCore.Qt.AlignmentFlag.AlignCenter

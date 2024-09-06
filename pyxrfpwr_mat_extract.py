@@ -103,7 +103,7 @@ def extractmat(file_name):
             intensity_cts[j] = intensity_cts_per_ion_chamber[j]*np.mean(I) # Convert from ug/cm^2 to cts for each element (use average ion chamber readings to reduce noise)
     
     x = np.reshape(x, [ny, nx], order = 'F') # Reshape x coordinate array into an ny x nx array
-    y = np.reshape(y, [ny, nx], order = 'F') # Reshape y coordinate array into an ny by nx array
+    y = np.reshape(y, [ny, nx], order = 'F') # Reshape y coordinate array into an ny x nx array
 
     x1 = x[0][0]
     x2 = x[0][-1]
