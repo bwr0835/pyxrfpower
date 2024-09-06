@@ -144,9 +144,9 @@ def extracth5data(h5file, synchrotron):
       x = axis_coords[0]
       y = axis_coords[1]
 
-      nx = len(x)
-      ny = len(y)
-            
+      nx = np.shape(x)[1]
+      ny = np.shape(y)[0]
+
       dx_um = np.abs(x[0][-1] - x[0][0])/(nx - 1)
       dy_um = np.abs(y[-1][0] - y[0][0])/(ny - 1)
             
