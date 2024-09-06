@@ -195,7 +195,7 @@ class Ui_Form(QtWidgets.QWidget):
         if upper_quantile == int(upper_quantile):
             upper_quantile = int(upper_quantile)
 
-        title = "Elemental Image of " + str(element, 'utf-8') + " (" + self.gamma_char + " = " + str(gamma) + ", LQ = " + str(lower_quantile) + ", HQ = " + str(upper_quantile) + ")"
+        title = "Elemental Image of " + str(element, 'utf-8') + " (" + self.gamma_char + " = " + str(gamma) + ", LQ = " + str(lower_quantile) + ", UQ = " + str(upper_quantile) + ")"
 
         self.widget.plotItem.hideAxis('bottom')
         self.widget.plotItem.hideAxis('left')
