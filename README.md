@@ -66,7 +66,7 @@ More details about PSD analysis can be found in a manuscript currently being dra
 
 # Contact
 
-Having trouble using PyXRFPower, noticing bugs, or thinking of recommandations for new features? Please contact <benjaminroter2026@u.northwestern.edu>.
+Having trouble using PyXRFPower, noticing bugs, or have recommandations for new features? Please contact <benjaminroter2026@u.northwestern.edu>.
 
 # References
 
