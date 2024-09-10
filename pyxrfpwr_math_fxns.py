@@ -19,7 +19,7 @@ def round_correct(num, ndec): # CORRECTLY round a number (num) to chosen number 
         
 class normalize: # A class of normalization functions
     def pwr_law_norm(array, min_threshold, max_threshold, gamma): # Power law normalization
-        if min_threshold > max_threshold:
+        if (min_threshold > max_threshold) or (max_threshold == 0):
             print("\n Error: Minimum threshold must be less than maximum threshold \n")
 
             return

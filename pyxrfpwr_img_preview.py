@@ -153,6 +153,10 @@ class Ui_Form(QtWidgets.QWidget):
         self.pushButton_3 = QtWidgets.QPushButton(parent=Form)
         self.pushButton_3.setGeometry(QtCore.QRect(550, 450, 111, 32))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.label_8 = QtWidgets.QLabel(parent=Form)
+        self.label_8.setGeometry(QtCore.QRect(550, 40, 281, 121))
+        self.label_8.setWordWrap(True)
+        self.label_8.setObjectName("label_8")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -226,6 +230,15 @@ class Ui_Form(QtWidgets.QWidget):
             self.pushButton_3.setDisabled(False)
             self.pushButton_5.setDisabled(True)
 
+    def update_msg(self, msg = None):
+        if msg is not None:
+            self.label_8.setText(msg)
+        
+        else:
+            self.label_8.clear()
+
+        return
+    
     def closeEvent(self, ev):
         self.img_preview_window_closed.emit()
 

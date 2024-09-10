@@ -1060,6 +1060,13 @@ class psd_launch(object):
 
                 min_threshold, max_threshold = np.quantile(intensity, [self.lower_quantile, self.upper_quantile])
 
+                if max_threshold == min_threshold:
+                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+                    
+                    self.gui_img_preview.pushButton_5(True)
+
+                    return
+                
                 self.normalized_intensity_array[element_index] = normalize.pwr_law_norm(intensity, min_threshold = min_threshold, max_threshold = max_threshold, gamma = self.gamma)
 
                 if self.k != 0:
@@ -1070,7 +1077,7 @@ class psd_launch(object):
 
                 if self.gui_img_preview.checkBox_2.isChecked():
                     self.normalized_intensity_array[element_index] = np.flip(self.normalized_intensity_array[element_index], axis = 0)
-        
+            
         else:
             for element in self.elements:
                 element_index = np.ndarray.item(np.where(self.elements == element)[0])
@@ -1079,18 +1086,25 @@ class psd_launch(object):
 
                 min_threshold, max_threshold = np.quantile(intensity, [self.lower_quantile, self.upper_quantile])
 
-                self.normalized_intensity_array[element_index] = normalize.pwr_law_norm(intensity, min_threshold = min_threshold, max_threshold = max_threshold, gamma = self.gamma)
+                if max_threshold == min_threshold:
+                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
 
+                    self.gui_img_preview.pushButton_5.setDisabled(True)
+
+                    return
+                
+                self.normalized_intensity_array[element_index] = normalize.pwr_law_norm(intensity, min_threshold = min_threshold, max_threshold = max_threshold, gamma = self.gamma)
+        
         current_element_index = self.gui_img_preview.comboBox.currentIndex()
 
+        self.gui_img_preview.pushButton_5.setDisabled(False)
         self.gui_img_preview.update_img_preview(self.elements[current_element_index], self.normalized_intensity_array[current_element_index], 
                                                 self.gamma, self.lower_quantile, self.upper_quantile, self.dx_um, self.dy_um)
-
+        self.gui_img_preview.update_msg()
+        
         self.additional_contrast_calculations = 0
 
     def calculate_psd_button_clicked(self):    
-        self.gui_img_preview.close()
-        
         self.snr_enabled_start = 0
         self.new_calculation = 1
 
@@ -1128,7 +1142,7 @@ class psd_launch(object):
         self.im_orig = {}
 
         self.intensity_backup = copy.deepcopy(self.intensity)
-        
+
         if circular_beam_checked:
             self.lin_fit_dict = {} 
             self.lin_fit_dict_backup = {}
@@ -1170,10 +1184,24 @@ class psd_launch(object):
             self.im[element] = self.normalized_intensity_array[element_index]
             self.im_orig[element] = self.intensity[element_index]
 
+            min_threshold, max_threshold = np.quantile(intensity_indiv_backup, [self.lower_quantile, self.upper_quantile])
+
             if self.additional_contrast_calculations:
-                min_threshold, max_threshold = np.quantile(intensity_indiv_backup, [self.lower_quantile, self.upper_quantile])
-                
+                if min_threshold == max_threshold:
+                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+
+                    self.gui_img_preview.pushButton_5.setDisabled(True)
+
+                    return
+                    
                 self.im[element] = normalize.pwr_law_norm(intensity_indiv_backup, min_threshold, max_threshold, self.gamma)
+
+            elif min_threshold == max_threshold:
+                self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+
+                self.gui_img_preview.pushButton_5.setDisabled(True)
+
+                return
 
             idx = np.where(intensity_indiv < 0)
 
@@ -1304,6 +1332,11 @@ class psd_launch(object):
         
         self.gui_plots_2d.comboBox.setCurrentIndex(self.current_element_index)
 
+        self.gui_img_preview.pushButton_5.setDisabled(False)
+        
+        self.gui_img_preview.update_msg()
+        self.gui_img_preview.close()
+
         self.gui_psd_a_el_select.show()
         
         return
@@ -1419,6 +1452,9 @@ class psd_launch(object):
 
     def el_select_cancel_button_clicked(self):
         self.gui_psd_a_el_select.close()
+        
+        self.gui_psd_a_el_select.listWidget.clearSelection()
+
         self.gui.setDisabled(False)
         self.gui_psd_a.setDisabled(False)
 
@@ -1547,8 +1583,6 @@ class psd_launch(object):
             first_element_index = bytes(self.selected_element_strings_backup[0], 'utf-8')
             
             n_ur_good = len(self.psd_dict[first_element_index][0])
-
-            print(n_ur_good)
 
             if n_ur_good != self.n_ur_backup: # Warning if there are radial spatial frequency bins without contributing pixels (these frequencies are thrown out when plotting)
                 self.gui_psd_a.update_msg_box(f"""<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\"> Warning: Only <b>{n_ur_good}</b> radial spatial frequency bins are contributing to <i>S</i>(<i>u<sub>r</sub></i>). </span></p></body></html>""")
