@@ -1063,7 +1063,7 @@ class psd_launch(object):
                 if min_threshold >= max_threshold:
                     self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensity corresponding to LQ is greater than or equal to UQ for at least one image.</span></p></body></html>")
                     
-                    self.gui_img_preview.pushButton_5(True)
+                    self.gui_img_preview.pushButton_5.setDisabled(True)
 
                     return
                 
