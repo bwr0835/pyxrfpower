@@ -1060,8 +1060,8 @@ class psd_launch(object):
 
                 min_threshold, max_threshold = np.quantile(intensity, [self.lower_quantile, self.upper_quantile])
 
-                if max_threshold == min_threshold:
-                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+                if min_threshold >= max_threshold:
+                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensity corresponding to LQ is greater than or equal to UQ for at least one image.</span></p></body></html>")
                     
                     self.gui_img_preview.pushButton_5(True)
 
@@ -1086,8 +1086,8 @@ class psd_launch(object):
 
                 min_threshold, max_threshold = np.quantile(intensity, [self.lower_quantile, self.upper_quantile])
 
-                if max_threshold == min_threshold:
-                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+                if min_threshold >= max_threshold:
+                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensity corresponding to LQ is greater than or equal to UQ for at least one image.</span></p></body></html>")
 
                     self.gui_img_preview.pushButton_5.setDisabled(True)
 
@@ -1187,8 +1187,8 @@ class psd_launch(object):
             min_threshold, max_threshold = np.quantile(intensity_indiv_backup, [self.lower_quantile, self.upper_quantile])
 
             if self.additional_contrast_calculations:
-                if min_threshold == max_threshold:
-                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+                if min_threshold >= max_threshold:
+                    self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensity corresponding to LQ is greater than or equal to UQ for at least one image.</span></p></body></html>")
 
                     self.gui_img_preview.pushButton_5.setDisabled(True)
 
@@ -1196,8 +1196,8 @@ class psd_launch(object):
                     
                 self.im[element] = normalize.pwr_law_norm(intensity_indiv_backup, min_threshold, max_threshold, self.gamma)
 
-            elif min_threshold == max_threshold:
-                self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensities corresponding to LQ and UQ are zero for at least one image.</span></p></body></html>")
+            elif min_threshold >= max_threshold:
+                self.gui_img_preview.update_msg("<html><head/><body><p align=\"left\"><span style=\" font-weight:700; color:#ff2600;\">Cannot update contrast <code>&#8212;</code> the intensity corresponding to LQ is greater than or equal to UQ for at least one image.</span></p></body></html>")
 
                 self.gui_img_preview.pushButton_5.setDisabled(True)
 
