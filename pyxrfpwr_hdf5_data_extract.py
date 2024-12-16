@@ -87,9 +87,16 @@ def extracth5data(h5file, synchrotron):
                   ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_m_shell[element_index_2]
 
                else:
-                  element_index_2 = np.ndarray.item(np.where(calib_curve_labels_k_shell == element)[0])
+                  # element_index_2 = np.ndarray.item(np.where(calib_curve_labels_k_shell == element)[0])
 
-                  ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_k_shell[element_index_2]
+                  # ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_k_shell[element_index_2]
+
+                  is_in_array = np.isin(element, calib_curve_labels_k_shell)
+                  
+                  if is_in_array:
+                     # Get the index of the first occurrence
+                     element_index_2 = np.where(calib_curve_labels_k_shell == element)[0][0]
+                     ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_k_shell[element_index_2]
 
                ug_cm2_ordered_array.append(ug_cm2)
                new_element_array.append(element)
