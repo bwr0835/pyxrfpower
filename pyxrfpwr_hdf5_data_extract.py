@@ -77,24 +77,24 @@ def extracth5data(h5file, synchrotron):
                counts_new = counts[element_index][:, :-2] # MAPS tacks on two extra columns of zeroes post-scan for whatever reason
 
                if b'_L' in element:
-                  element_index_2 = np.ndarray.item(np.where(calib_curve_labels_l_shell == element)[0])
-
-                  ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_l_shell[element_index_2]
+                  is_in_array = np.isin(element, calib_curve_labels_l_shell) # If the element is in the L calibration curve label array
+                  
+                  if is_in_array:
+                     element_index_2 = np.where(calib_curve_labels_l_shell == element)[0][0]  # Get the index of the first occurrence
+                     ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_l_shell[element_index_2]
 
                elif b'_M' in element:
-                  element_index_2 = np.ndarray.item(np.where(calib_curve_labels_m_shell == element)[0])
-   
-                  ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_m_shell[element_index_2]
-
-               else:
-                  # element_index_2 = np.ndarray.item(np.where(calib_curve_labels_k_shell == element)[0])
-
-                  # ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_k_shell[element_index_2]
-
-                  is_in_array = np.isin(element, calib_curve_labels_k_shell)
+                  is_in_array = np.isin(element, calib_curve_labels_m_shell)
                   
                   if is_in_array:
                      # Get the index of the first occurrence
+                     element_index_2 = np.where(calib_curve_labels_m_shell == element)[0][0]
+                     ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_m_shell[element_index_2]
+
+               else:
+                  is_in_array = np.isin(element, calib_curve_labels_k_shell)
+                  
+                  if is_in_array:
                      element_index_2 = np.where(calib_curve_labels_k_shell == element)[0][0]
                      ug_cm2 = counts_new/us_ic_scaler_values/calib_usic_k_shell[element_index_2]
 
