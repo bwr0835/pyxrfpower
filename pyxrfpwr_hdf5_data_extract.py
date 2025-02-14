@@ -104,15 +104,6 @@ def extracth5data(h5file, synchrotron):
          counts_ordered_array = []
          new_element_array = []
 
-         scaler_names_h5 = h5['MAPS/Scalers/Names']
-         scaler_values_h5 = h5['MAPS/Scalers/Values']
-
-         scaler_values = scaler_values_h5[()]
-         scaler_names = scaler_names_h5[()]
-
-         us_ic_scaler_values_idx = np.ndarray.item(np.where(scaler_names == b'US_IC')[0])
-
-         us_ic_scaler_values = scaler_values[us_ic_scaler_values_idx][:, :-2]
          
          for element in elements:
             if element not in elements_entries_to_ignore:
