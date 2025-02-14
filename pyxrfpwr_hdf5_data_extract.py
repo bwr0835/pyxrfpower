@@ -144,6 +144,24 @@ def extracth5data(h5file, synchrotron):
       nx = np.shape(x)[1]
       ny = np.shape(y)[0]
 
+      elements_entries_to_ignore = [b'compton',
+                                      b'elastic',
+                                      b'snip_bkg',
+                                      b'r_factor',
+                                      b'sel_cnt',
+                                      b'total_cnt']
+
+      element_idx_to_delete = []
+      
+      for element in elements:
+         element_index = np.ndarray.item(np.where(elements == element)[0])
+
+         if element in elements_entries_to_ignore:
+            element_idx_to_delete.append(element_index)
+
+      counts = np.delete(counts, element_idx_to_delete, axis = 0)
+      elements = np.delete(elements, element_idx_to_delete)
+               
       dx_um = np.abs(x[0][-1] - x[0][0])/(nx - 1)
       dy_um = np.abs(y[-1][0] - y[0][0])/(ny - 1)
             
