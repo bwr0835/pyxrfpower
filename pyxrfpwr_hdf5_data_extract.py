@@ -7,8 +7,8 @@
 # To include an HDF5 file structure from a different synchrotron, please contact benjaminroter2026@u.northwestern.edu.
 
 # The following parameters are returned:
-   # Element names
-   # Intensity maps (in units of either µg/cm^2 or cts/s)
+   # Element names (in BYTE ARRAY format)
+   # Intensity maps (in units of either µg/cm^2 or cts)
    # nx = # of pixels in x
    # ny = # of pixels in y
    # dx_um = Length of each pixel in x (µm)
@@ -39,9 +39,14 @@ def extracth5data(h5file, synchrotron):
       nx = len(nx_conv)
       ny = len(ny_conv) - 2 # MAPS tacks on two extra values for whatever reason
 
-      elements_entries_to_ignore = [b'Ar_Ar', b'COMPTON_AMPLITUDE', 
-                                    b'COHERENT_SCT_AMPLITUDE', b'Num_Iter', 
-                                    b'Fit_Residual', b'Total_Fluorescence_Yield',
+      elements_entries_to_ignore = [b'Ar_Ar',
+                                    b'Fe_Fe',
+                                    b'Si_Si', 
+                                    b'COMPTON_AMPLITUDE', 
+                                    b'COHERENT_SCT_AMPLITUDE', 
+                                    b'Num_Iter', 
+                                    b'Fit_Residual', 
+                                    b'Total_Fluorescence_Yield',
                                     b'Sum_Elastic_Inelastic']
 
       if "MAPS/Quantification" in h5.keys():
