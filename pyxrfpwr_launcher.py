@@ -9,7 +9,8 @@
 
 import os, sys, platform
 import pyxrfpwr_main_window, pyxrfpwr_change_pixel_dims, pyxrfpwr_img_preview, pyxrfpwr_img_2dpsd, pyxrfpwr_el_select, pyxrfpwr_psd_a, pyxrfpwr_res_params, pyxrfpwr_xy_res_params
-import numpy as np, csv, copy
+import numpy as np, cmath as cm
+import csv, copy
 
 from PyQt6 import QtCore, QtWidgets
 from pyxrfpwr_hdf5_data_extract import extracth5data as eh5
@@ -1203,15 +1204,7 @@ class psd_launch(object):
 
                 return
 
-            idx = np.where(intensity_indiv < 0)
-
-            if np.size(idx) != 0:
-                intensity_indiv += np.abs(np.min(intensity_indiv))
-
-                intensity_indiv = np.sqrt(intensity_indiv)
-            
-            else:
-                intensity_indiv = np.sqrt(intensity_indiv)
+            intensity_indiv = np.vectorize(cm.sqrt)(intensity_indiv) # np.vectorize() in this case effectively converts cm.sqrt() into a version that can work handle arrays
             
             if (self.k != 0) or hor_flip_checked or vert_flip_checked:
                 if self.k != 0:

@@ -97,7 +97,7 @@ def extractmat(file_name):
 
         I[I_nan_idx] = 0 # Set dead pixel values to zero
 
-        intensity_cts = np.empty((n_elements, ny, nx))
+        intensity_cts = np.zeros((n_elements, ny, nx))
         
         for j in range(n_elements):
             intensity_cts[j] = intensity_cts_per_ion_chamber[j]*np.mean(I) # Convert from ug/cm^2 to cts for each element (use average ion chamber readings to reduce noise)
@@ -148,7 +148,7 @@ def extractmat(file_name):
         intensity_cts_ordered_array = []
         
         for j in range(n_elements):
-            intensity_cts_ordered = np.rot90(intensity_ug_cm2_new[j], k = 1)
+            intensity_cts_ordered = np.rot90(intensity_cts[j], k = 1)
             intensity_cts_ordered = np.flip(intensity_cts_ordered, axis = 0)
 
             intensity_cts_ordered_array.append(intensity_cts_ordered)
