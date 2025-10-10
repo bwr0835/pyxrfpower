@@ -7,10 +7,21 @@
 # Note: Some of the functions associated with closing a window via their window "close" buttons, 
 # as well as closing a window via "cancel" buttons, may mix, as PyQt cannot differentiate between the two.
 
-import os, sys, platform
-import pyxrfpwr_main_window, pyxrfpwr_change_pixel_dims, pyxrfpwr_img_preview, pyxrfpwr_img_2dpsd, pyxrfpwr_el_select, pyxrfpwr_psd_a, pyxrfpwr_res_params, pyxrfpwr_xy_res_params
-import numpy as np, cmath as cm
-import csv, copy
+import numpy as np, \
+       cmath as cm, \
+       csv, \
+       copy, \
+       os, \
+       sys, \
+       platform, \
+       pyxrfpwr_main_window, \
+       pyxrfpwr_change_pixel_dims, \
+       pyxrfpwr_img_preview, \
+       pyxrfpwr_img_2dpsd, \
+       pyxrfpwr_el_select, \
+       pyxrfpwr_psd_a, \
+       pyxrfpwr_res_params, \
+       pyxrfpwr_xy_res_params
 
 from PyQt6 import QtCore, QtWidgets
 from pyxrfpwr_hdf5_data_extract import extracth5data as eh5
@@ -801,7 +812,7 @@ class psd_launch(object):
         
         else:
             self.gui_psd_a_res_params_xy.close()
-#        
+
         if self.normalized_intensity_array == []:
             self.elements_string = []
         
@@ -809,9 +820,9 @@ class psd_launch(object):
         
             self.elements_string_backup = copy.copy(self.elements_string)
             
-            for element in self.elements:
-                element_index = np.ndarray.item(np.where(self.elements == element)[0])
-
+            for element_index, element in enumerate(self.elements):
+                # element_index = np.ndarray.item(np.where(self.elements == element)[0])
+                    
                 element_string = str(element, 'utf-8')
 
                 intensity = copy.copy(self.intensity[element_index])
@@ -1134,7 +1145,7 @@ class psd_launch(object):
 
         self.gui_plots_2d.pushButton.setDisabled(True)
 
-        self.n_ur_backup = copy.copy(self.n_ur)
+        self.n_ur_backup = np.copy(self.n_ur)
 
         self.gui_psd_a.n_ur = self.n_ur_backup
         
@@ -1143,6 +1154,9 @@ class psd_launch(object):
         self.im_orig = {}
 
         self.intensity_backup = copy.deepcopy(self.intensity)
+
+        self.dx_um_backup = np.copy(self.dx_um)
+        self.dy_um_backup = np.copy(self.dy_um)
 
         if circular_beam_checked:
             self.lin_fit_dict = {} 
@@ -1175,9 +1189,7 @@ class psd_launch(object):
             self.lower_quantile_orig = copy.copy(self.lower_quantile)
             self.upper_quantile_orig = copy.copy(self.upper_quantile)
         
-        for element in self.elements:
-            element_index = np.ndarray.item(np.where(self.elements == element)[0])
-
+        for element_index, element in enumerate(self.elements):
             intensity_indiv = self.intensity_backup[element_index]
             
             intensity_indiv_backup = copy.copy(self.intensity[element_index])
@@ -2371,7 +2383,7 @@ class psd_launch(object):
                                        self.delta + "_res (" + self.mu + "m)"])
                     headings_2.extend(["S_dtf(u_r)", "S_nff(u_r)"])
 
-                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_orig, self.dy_um_orig, 
+                    data_headings1 = [self.nx_backup, self.ny_orig, self.dx_um_backup, self.dy_um_backup, 
                                       self.n_ur_backup, a, 10**P, 10**nf, ur_cutoff_inv_um, dr_hp_um]
                     
                     data_headings2_line1 = [ur[0], psd_a[0]]
@@ -2473,7 +2485,7 @@ class psd_launch(object):
                     headings_2.extend(["S_x,dtf(u_r)", "S_x,nff"])
                     headings_3.extend(["S_y,dtf(u_r)", "S_y,nff"])
 
-                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_orig, self.dy_um_orig, 
+                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_backup, self.dy_um_backup, 
                                       self.n_ur_backup, a_x, a_y, 10**P_x, 10**P_y, 10**nf_x, 10**nf_y, ur_x_cutoff_inv_um, ur_y_cutoff_inv_um, 
                                       dr_x_hp_um, dr_y_hp_um]
                     
@@ -2498,7 +2510,7 @@ class psd_launch(object):
                         writer.writerows(data_headings3_rest)
                 
                 else:
-                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_backup, self.dy_um_orig, self.n_ur_backup]
+                    data_headings1 = [self.nx_backup, self.ny_backup, self.dx_um_backup, self.dy_um_backup, self.n_ur_backup]
                     data_headings2 = np.column_stack((ur_x, psd_a_x))
                     data_headings3 = np.column_stack((ur_y, psd_a_y))
 
