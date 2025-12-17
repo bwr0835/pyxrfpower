@@ -21,8 +21,6 @@
         # For the remainder of the code, images and variables associated with x and y are going to be referring to the
         # new indexing scheme
 
-# To include a different Matlab file structure, please contact benjaminroter2026@u.northwestern.edu
-
 from pymatreader import read_mat as rm
 
 import numpy as np
