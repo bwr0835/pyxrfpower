@@ -28,8 +28,6 @@ import numpy as np
 def extractmat(file_name):
     mu = "\u03BC"
     
-    matlab_data = {}
-    
     matlab_data = rm(file_name) # Convert Matlab file structure to Python-like dictionary
 
     handles = matlab_data["handles"]
@@ -103,11 +101,11 @@ def extractmat(file_name):
     x = np.reshape(x, [ny, nx], order = 'F') # Reshape x coordinate array into an ny x nx array
     y = np.reshape(y, [ny, nx], order = 'F') # Reshape y coordinate array into an ny x nx array
 
-    x1 = x[0][0]
-    x2 = x[0][-1]
+    x1 = x[0, 0]
+    x2 = x[0, -1]
 
-    y1 = y[0][0]
-    y2 = y[-1][0]
+    y1 = y[0, 0]
+    y2 = y[-1, 0]
 
     dx = np.abs(x2 - x1)/(nx - 1)
     dy = np.abs(y2 - y1)/(ny - 1)
