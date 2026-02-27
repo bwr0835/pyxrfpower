@@ -1,6 +1,6 @@
 # PyXRFPower
 
-PyXRFPower is a graphical user interface (GUI) designed to allow one to quickly estimate element-dependent spatial resolutions of scanning fluorescence X-ray microscopy (SFXM) images acquired at synchrotron light source beamlines via power spectral density (PSD) analysis [1].
+PyXRFPower is a graphical user interface (GUI) designed to allow one to quickly estimate element-dependent spatial resolutions of scanning fluorescence X-ray microscopy (SFXM) images [1] acquired at synchrotron light source beamlines via power spectral density (PSD) analysis.
 
 # GUI Features
 
