@@ -62,7 +62,7 @@ $ python pyxrfpwr_launcher.py
 
 A manual for how to use PyXRFPower can be found inside the PyXRFPower repository: `pyxrfpwr_im.docx`  
 
-Example `.mat` files that can be used to explore the GUI can be found [here](https://doi.org/10.21985/n2-cx5v-f797). Those files are related to resolution calculations described in the manuscript, [Multifunctional bending magnet beamline with a capillary optic for X-ray fluorescence studies of metals in tissue sections](https://doi.org/10.1107/S1600577526000925
+Example M-BLANK [2] files that can be used to explore the GUI can be found [here](https://doi.org/10.21985/n2-cx5v-f797). Those files are related to resolution calculations described in the manuscript, [Multifunctional bending magnet beamline with a capillary optic for X-ray fluorescence studies of metals in tissue sections](https://doi.org/10.1107/S1600577526000925
 ) (written by B. Roter, A. M. Crawford, Q. Jin, A. T. Glowacki, B. Lai, F. S. Marin, E. Maxey, X. Shi, V. C. Culotta, A. S. Wildeman, N. K. Patel, T. V. O'Halloran, and C. Jacobsen), for which the GUI was developed for initially. More information on power spectral density analysis can also be found in that manuscript as well.
 
 # Contact
