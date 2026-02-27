@@ -77,6 +77,6 @@ Roter, B., Crawford, A. M., Jin, Q., Glowacki, A. T., Lai, B., Marin, F. S., Max
 
 # References
 
-[1] Deng, J,, Vine, D. J., Jin, Q., Nashed, Y. S. G., Peterka, T., Vogt, S., & Jacobsen, C. (2017). *Sci. Rep.* **7**, 445.
+[1] Deng, J., Vine, D. J., Jin, Q., Nashed, Y. S. G., Peterka, T., Vogt, S., & Jacobsen, C. (2017). *Sci. Rep.* **7**, 445.
 
 [2] Crawford, A. M., Deb, A., & Penner-Hahn, J. E., *J. Synchrotron Rad.* **26**, 497–503.
