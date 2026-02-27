@@ -25,7 +25,7 @@ The 2D PSD for a particular element can be found via
 ```
 - $u_{x}, u_{y} \equiv x$, $y$ spatial frequencies extending out to $1/\left(2\Delta_{x}\right), 1/\left(2\Delta_{y}\right)$
   - $\Delta_{x}$, $\Delta_{y} \equiv x$, $y$ pixel sizes
-- $I \equiv$ fluorescence intensity
+- $I \equiv$ fluorescence intensity (Note: Trace areal mass concentration maps $\rho_{Z}'\left(x, y\right)$ for an element of atomic number $Z$ can also be used in place of intensity maps $I\left(x, y\right)$, as the former is directly related to the latter.)
 
 2D PSDs can be averaged over an arbitrary number of circles to produce azimuthally averaged PSDs $S\left(u_{r}\right).$
  - $u_{r} \equiv$ radial spatial frequency
