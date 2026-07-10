@@ -212,6 +212,9 @@ class psd_launch(object):
                 self.nx_orig = copy.copy(self.nx)
                 self.ny_orig = copy.copy(self.ny)
 
+                self.nx_backup = copy.copy(self.nx)
+                self.ny_backup = copy.copy(self.ny)
+
                 if (self.nx % 2) or (self.ny % 2):
                     self.gui.checkBox_2.setChecked(True)
                     self.gui.checkBox_2.setDisabled(False)
@@ -257,6 +260,9 @@ class psd_launch(object):
 
             self.nx_orig = copy.copy(self.nx)
             self.ny_orig = copy.copy(self.ny)
+
+            self.nx_backup = copy.copy(self.nx)
+            self.ny_backup = copy.copy(self.ny)
 
             self.gui_plots_2d.file_ext = ".mat"
 
@@ -357,6 +363,9 @@ class psd_launch(object):
 
         self.nx_orig = copy.copy(self.nx)
         self.ny_orig = copy.copy(self.ny)
+
+        self.nx_backup = copy.copy(self.nx)
+        self.ny_backup = copy.copy(self.ny)
         
         if (self.nx % 2) or (self.ny % 2):
             self.gui.checkBox_2.setChecked(True)
@@ -463,6 +472,9 @@ class psd_launch(object):
 
         self.nx_orig = np.copy(self.nx)
         self.ny_orig = np.copy(self.ny)
+
+        self.nx_backup = copy.copy(self.nx)
+        self.ny_backup = copy.copy(self.ny)
         
         if (self.nx % 2) or (self.ny % 2):
             self.gui.checkBox_2.setChecked(True)
@@ -558,6 +570,9 @@ class psd_launch(object):
 
         self.nx_orig = copy.copy(self.nx)
         self.ny_orig = copy.copy(self.ny)
+
+        self.nx_backup = copy.copy(self.nx)
+        self.ny_backup = copy.copy(self.ny)
         
         if (self.nx % 2) or (self.ny % 2):
             self.gui.checkBox_2.setChecked(True)
@@ -652,6 +667,9 @@ class psd_launch(object):
 
         self.nx_orig = copy.copy(self.nx)
         self.ny_orig = copy.copy(self.ny)
+
+        self.nx_backup = copy.copy(self.nx)
+        self.ny_backup = copy.copy(self.ny)
         
         if (self.nx % 2) or (self.ny % 2):
             self.gui.checkBox_2.setChecked(True)

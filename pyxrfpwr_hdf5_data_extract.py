@@ -109,7 +109,6 @@ def extracth5data(h5file, synchrotron):
          counts_ordered_array = []
          new_element_array = []
 
-         
          for element in elements:
             if element not in elements_entries_to_ignore:
                element_index = np.ndarray.item(np.where(elements == element)[0])
@@ -127,7 +126,6 @@ def extracth5data(h5file, synchrotron):
       nx, ny = ny, nx
       dx_um, dy_um = dy_um, dx_um
 
-    
       if "MAPS/Quantification" in h5.keys():
          return np.array(new_element_array), ug_cm2_ordered_array, nx, ny, dx_um, dy_um
       
@@ -150,11 +148,11 @@ def extracth5data(h5file, synchrotron):
       ny = np.shape(y)[0]
 
       elements_entries_to_ignore = [b'compton',
-                                      b'elastic',
-                                      b'snip_bkg',
-                                      b'r_factor',
-                                      b'sel_cnt',
-                                      b'total_cnt']
+                                    b'elastic',
+                                    b'snip_bkg',
+                                    b'r_factor',
+                                    b'sel_cnt',
+                                    b'total_cnt']
 
       element_idx_to_delete = []
       

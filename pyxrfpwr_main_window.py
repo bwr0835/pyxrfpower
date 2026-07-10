@@ -109,6 +109,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.gridLayout_3.addWidget(self.label_15, 0, 0, 1, 1, QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.spinBox = QtWidgets.QSpinBox(parent=self.layoutWidget_2)
         self.spinBox.setObjectName("spinBox")
+        self.spinBox.setMaximum(10000)
         self.gridLayout_3.addWidget(self.spinBox, 0, 1, 1, 1)
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(parent=self.layoutWidget_2)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
