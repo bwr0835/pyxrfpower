@@ -1234,7 +1234,7 @@ class psd_launch(object):
 
                 return
 
-            intensity_indiv = np.vectorize(cm.sqrt)(intensity_indiv) # np.vectorize() in this case effectively converts cm.sqrt() into a version that can work handle arrays
+            intensity_indiv = np.vectorize(cm.sqrt)(intensity_indiv) # np.vectorize() in this case effectively converts cm.sqrt() into a version that can handle arrays
             
             if (self.k != 0) or hor_flip_checked or vert_flip_checked:
                 if self.k != 0:
