@@ -20,7 +20,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.listWidget.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.MultiSelection)
         self.listWidget.setObjectName("listWidget")
         self.label = QtWidgets.QLabel(parent=Form)
-        self.label.setGeometry(QtCore.QRect(10, 20, 311, 20))
+        self.label.setGeometry(QtCore.QRect(10, 20, 400, 20))
         self.label.setObjectName("label")
         self.layoutWidget = QtWidgets.QWidget(parent=Form)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 270, 501, 32))

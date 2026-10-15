@@ -195,10 +195,10 @@ class Ui_Form(QtWidgets.QWidget):
         psd_a_min_log = np.log10(psd_a_min)
         psd_a_max_log = np.log10(psd_a_max)
 
-        if np.abs(psd_a_min_log) == np.Inf: # Dead pixels
+        if np.abs(psd_a_min_log) == np.inf: # Dead pixels
             psd_a_min_log = -1e8
         
-        if np.abs(psd_a_max_log) == np.Inf: # Dead pixels
+        if np.abs(psd_a_max_log) == np.inf: # Dead pixels
             psd_a_max_log = -1e8
 
         for element in selected_elements:
